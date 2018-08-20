@@ -71,7 +71,6 @@ FROM shakataganai/miniubuntu:latest
 COPY --from=build /usr/local/lib/libxjwt.a /usr/local/lib/libxjwt.la /usr/local/lib/libxjwt.so.0.1.0 /usr/lib/x86_64-linux-gnu/
 RUN installpkg libcurl4-openssl-dev libjansson-dev \
   && mkdir -p /var/run /var/log/nginx /etc/nginx /usr/lib/nginx/modules /var/cache/nginx/client_temp \
-  && ln -s /usr/lib/x86_64-linux-gnu/libxjwt.so.0.1.0 /usr/lib/x86_64-linux-gnu/libxjwt.so.0 \
   && ln -s /usr/lib/x86_64-linux-gnu/libxjwt.so.0.1.0 /usr/lib/x86_64-linux-gnu/libxjwt.so \
   && ldconfig \
   && useradd nginx \
@@ -79,6 +78,7 @@ RUN installpkg libcurl4-openssl-dev libjansson-dev \
 COPY --from=build /usr/lib/nginx/modules /usr/lib/nginx/modules
 COPY --from=build /etc/nginx /etc/nginx
 COPY --from=build /usr/sbin/nginx /usr/sbin/nginx
+#RUN ln -s /usr/lib/x86_64-linux-gnu/libxjwt.so.0.1.0 /usr/lib/x86_64-linux-gnu/libxjwt.so.0
 
 EXPOSE 80
 
